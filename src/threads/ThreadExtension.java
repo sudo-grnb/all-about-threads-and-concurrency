@@ -1,20 +1,18 @@
 package threads;
 
 public class ThreadExtension extends Thread {
-    StringBuilder builder;
     char letter;
 
-    public ThreadExtension(StringBuilder builder, char letter) {
-        this.builder = builder;
+    public ThreadExtension(char letter) {
         this.letter = letter;
     }
 
     @Override
     public void run() {
         for (int i = 0; i < 150; i++) {
-            builder.append(letter);
+            System.out.print(letter);
         }
 
-        builder.append('\n');
+        System.out.println();
     }
 }

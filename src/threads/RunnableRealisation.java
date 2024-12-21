@@ -1,20 +1,18 @@
 package threads;
 
 public class RunnableRealisation implements Runnable{
-    StringBuffer builder;
     char letter;
 
-    public RunnableRealisation(StringBuffer builder, char letter) {
-        this.builder = builder;
+    public RunnableRealisation(char letter) {
         this.letter = letter;
     }
 
     @Override
     public void run() {
         for (int i = 0; i < 150; i++) {
-            builder.append(letter);
+            System.out.print(letter);
         }
 
-        builder.append('\n');
+        System.out.println();
     }
 }
