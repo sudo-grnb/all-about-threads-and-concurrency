@@ -1,41 +1,27 @@
 package threads;
 
-import threads.RunnableRealisation;
-
-import threads.ThreadExtension;
-
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
-        int numberOfThreads = 15;
+    public static void main(String[] args)  {
         char startValue = 'A';
-        Thread[] threads = new Thread[numberOfThreads];
-        //region 1 way
-//        StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < numberOfThreads; i++) {
-//            final char letter = startValue++;
-//            threads[i] = new ThreadExtension(sb, letter);
-//            threads[i].start();
-//        }
-        //endregion
-//
-        //region 2 way
-        StringBuffer sb = new StringBuffer();
 
-        for (int i = 0; i < numberOfThreads; i++) {
-            final char letter = startValue++;
-            threads[i] = new Thread(new RunnableRealisation(sb, letter));
-            threads[i].start();
-        }
+        //1 way
+        Thread extendedThread = new ThreadExtension(startValue);
+        extendedThread.start();
 
-        //endregion
+        //2 way
+        Thread runnableRealisation = new Thread(new RunnableRealisation(++startValue));
+        runnableRealisation.start();
 
-        //region 3 way
-        Thread thread = new Thread(() -> System.out.println("Hello World!"));
+        //3 way
+        final char letter = (char) (startValue + 1);
+        Thread thread = new Thread(() -> {
+            for (int i = 0; i < 150; i++) {
+                System.out.print(letter);
+            }
+
+            System.out.println();
+        });
         thread.start();
-        //endregion
-
-        Thread.sleep(1000);
-        System.out.println("Final output: \n" + sb.toString());
     }
 }
